@@ -52,9 +52,9 @@ python main.py
 ### 1.填写cookies
 第一次运行程序时，程序会让你输入GGn与猫站的cookies，按照提示输入即可：
 ![cookies.png](https://img.pterclub.com/images/2021/03/15/2021-03-15-223914.png)
-如果不知道如何获取cookies的，可以参考
+如果不知道如何获取cookies的，可以参考[常见问题](https://github.com/scatking/ggn2pter#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
-### 2.输入GGn的下载链接：
+### 2.输入GGn的下载链接
 
 ### 3.等待程序运行
 
