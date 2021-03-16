@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import os
 import scatfunc
 import json
+import bencode
 
 headers = {
     'Connection': 'keep-alive',
@@ -101,9 +102,15 @@ class GGnApi:
 
     def _download_torrent(self):
         res = self.session.get(self.dl_link)
-        with open(os.path.join('torrents', os.path.basename('{}.torrent'.format(self.release_title))), 'wb') as torrent:
-            for chunk in res.iter_content(100000):
-                torrent.write(chunk)
+        torrent = bytes()
+        for chunk in res.iter_content(100000):
+            torrent += chunk
+        torrent = bencode.decode_torrent(torrent,encoding="utf8")
+        torrent['announce'] = 'https://tracker.pterclub.com';torrent['comment'] = 'https://pterclub.com/detailsgame.php'
+        torrent = bencode.encode(torrent)
+        with open(os.path.join('torrents', os.path.basename('{}.torrent'.format(self.release_title))), 'wb') as t:
+            t.write(torrent)
+
 
     def _return_terms(self):
         attr = {}
@@ -232,4 +239,4 @@ class PTerApi:
 
 if __name__ == '__main__':
     ggn = GGnApi('none')
-    ggn._copy_desc()
+    ggn._download_torrent()
