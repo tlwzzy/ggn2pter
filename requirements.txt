@@ -2,3 +2,4 @@ retrying==1.3.3
 modern_bencode==1.1.2
 beautifulsoup4==4.9.3
 Requests==2.25.1
+scatfunc @ git+https://github.com/scatking/scatfun.git
