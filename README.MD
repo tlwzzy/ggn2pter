@@ -22,12 +22,12 @@
 ### Python 模式
 
 #### 1.克隆我的仓库
-~~~~
-git clone https://github.com/scatking/DICBetter.git
+~~~~shell
+git clone https://github.com/scatking/ggn2pter.git
 ~~~~
 当然你也可以直接下载源码包后解压使用：
-~~~~
-https://github.com/scatking/DICBetter/archive/master.zip
+~~~~shell
+https://github.com/scatking/ggn2pter/archive/master.zip
 ~~~~
 #### 2.安装相关依赖
 ~~~~
