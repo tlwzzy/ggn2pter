@@ -1,4 +1,4 @@
-name: Auto Build EXE
+name: Auto Build Executable File
 
 on: 
   push:
@@ -9,7 +9,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 # This workflow contains a single job called "build"
-  build:
+  build_windows:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
@@ -31,7 +31,29 @@ jobs:
       - name: Upload EXE
         uses: actions/upload-artifact@v2.2.2
         with:
-          name: ggn2pter
+          name: ggn2pter_windows
           path: dist/*.exe
+  build_ubuntu:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
 
-
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Set up Python #安装python
+        uses: actions/setup-python@v2.2.1
+        with:
+          python-version: 3.8
+      - name: Install requirements #安装requests
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+      - name: Build Executable File
+        run: |
+          pyinstaller -F main.py -n ggn2pter
+      - name: Upload File
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          name: ggn2pter_ubuntu
+          path: dist/*
