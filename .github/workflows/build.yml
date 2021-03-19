@@ -13,7 +13,7 @@ jobs:
 # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: Upload EXE
         uses: actions/upload-artifact@v2.2.2
         with:
-          name: ggn2pter.exe
-          path: dist/*
+          name: ggn2pter
+          path: dist/*.exe
 
 
