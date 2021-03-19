@@ -43,9 +43,11 @@ python main.py
 ~~~~
 ### 可执行文件模式
 
-#### 1. 前往 https://github.com/scatking/ggn2pter/releases 下载最新的发布文件
+#### 1. 下载发布文件
 
-#### 2. 双击运行使用
+前往 [发布页面](https://github.com/scatking/ggn2pter/releases ) 下载最新的发布文件
+
+#### 2. 解压后双击`ggn2pter.py`运行使用
 
 ## 使用指南
 
