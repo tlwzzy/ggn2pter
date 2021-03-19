@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 import os
 import scatfunc
 import json
-import bencode
+import bencodepy
+
 
 headers = {
     'Connection': 'keep-alive',
@@ -94,7 +95,7 @@ class GGnApi:
             self.release_title += '-GOG' if 'GOG' in desc_soup.select_one('#remaster_title').get(
                 'value').upper() else ''
         self.release_type = desc_soup.select_one('#miscellaneous option[selected="selected"]').text
-        if self.release_type == 'GameDox':
+        if self.release_type == 'GameDOX':
             self.release_type = desc_soup.select_one('#gamedox option[selected="selected"]').text
         self.scene = 'yes' if desc_soup.select_one('input#ripsrc_scene[checked="checked"]') else 'no'
         self.verified = 'yes' if self.release_type in 'P2P DRM Free' else 'no'
@@ -105,12 +106,12 @@ class GGnApi:
         torrent = bytes()
         for chunk in res.iter_content(100000):
             torrent += chunk
-        torrent = bencode.decode_torrent(torrent,encoding="utf8")
-        torrent['announce'] = 'https://tracker.pterclub.com';torrent['comment'] = 'https://pterclub.com/detailsgame.php'
-        torrent = bencode.encode(torrent)
+        torrent = bencodepy.decode(torrent)
+        del torrent[b'announce']
+        del torrent[b'comment']
+        torrent = bencodepy.encode(torrent)
         with open(os.path.join('torrents', os.path.basename('{}.torrent'.format(self.release_title))), 'wb') as t:
             t.write(torrent)
-
 
     def _return_terms(self):
         attr = {}
@@ -208,7 +209,7 @@ class PTerApi:
         torrent_file = 'torrents/{}.torrent'.format(self.release_title)
         file = ("file", (os.path.basename(torrent_file), open(torrent_file, 'rb'), 'application/x-bittorrent')),
         data = {'uplver': self.uplver, 'categories': release_type_dict[self.release_type],
-                'format': release_format_dict[self.release_type], 'has_allowed_offer': '0', 'gid': self.gid,
+                'format': release_format_dict[self.release_type] if self.release_type in release_format_dict else '7', 'has_allowed_offer': '0', 'gid': self.gid,
                 'descr': self.torrent_desc}
         region = input('请选择种子地区（直接输入数字即可）：\n1.大陆\n2.香港\n3.台湾\n4.英美\n5.韩国\n6.日本\n7.其它\n')
         if self.scene == 'yes':
