@@ -1,4 +1,4 @@
-# ggn2pter GGn自动转种机器人
+# ggn2pter GGn自动转种机器人![python](https://img.shields.io/badge/python-3.7-blue)![time](https://img.shields.io/github/last-commit/scatking/ggn2pter)
 
 ## 简介
 
@@ -33,7 +33,7 @@ https://github.com/scatking/ggn2pter/archive/master.zip
 ~~~~shell
 pip install -r requirements.txt
 ~~~~
-如果你无法安装的话可能是你的用户权限不够，尝试使用sudo安装
+如果你无法安装的话可能是你的用户权限不够，尝试使用`sudo`安装
 ~~~~shell
 sudo -H pip install -r requirements.txt
 ~~~~
