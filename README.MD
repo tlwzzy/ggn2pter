@@ -27,7 +27,7 @@ git clone https://github.com/scatking/ggn2pter.git
 ~~~~
 当然你也可以直接下载源码包后解压使用：
 ~~~~shell
-https://github.com/scatking/ggn2pter/archive/master.zip
+wget https://github.com/scatking/ggn2pter/archive/master.zip
 ~~~~
 #### 2.安装相关依赖
 ~~~~shell
