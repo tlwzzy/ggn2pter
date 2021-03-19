@@ -89,7 +89,7 @@ class GGnApi:
         # url = 'http://127.0.0.1:85/ggn5.html'
         desc = self.session.get(url)
         desc_soup = BeautifulSoup(desc.text, 'lxml')
-        self.torrent_desc = desc_soup.select_one('#release_desc').text
+        self.torrent_desc = desc_soup.select_one('#release_desc').text.replace('[align=center]','').replace('[/align]','')
         self.release_title = desc_soup.select_one('#release_title').get('value')
         if desc_soup.select_one('#remaster_title'):
             self.release_title += '-GOG' if 'GOG' in desc_soup.select_one('#remaster_title').get(
