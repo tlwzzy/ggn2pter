@@ -15,7 +15,7 @@
 
 ### 可执行文件模式
 
-* Windows
+* Windows, Linux
 
 ## 安装指南
 
@@ -43,11 +43,20 @@ python main.py
 ~~~~
 ### 可执行文件模式
 
-#### 1. 下载发布文件
+#### 稳定发布版
+
+##### 1. 下载发布文件
 
 前往 [发布页面](https://github.com/scatking/ggn2pter/releases ) 下载最新的发布文件
 
-#### 2. 解压后双击`ggn2pter.py`运行使用
+##### 2. 解压后双击`ggn2pter.py`运行使用
+
+#### 最新版
+
+#### 1. 下载发布文件
+前往[Github Action](https://github.com/scatking/ggn2pter/actions)对应平台下载最新构建的发布包
+
+##### 2. 解压后运行使用
 
 ## 使用指南
 
