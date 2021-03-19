@@ -110,6 +110,8 @@ class GGnApi:
         del torrent[b'announce']
         del torrent[b'comment']
         torrent = bencodepy.encode(torrent)
+        if 'torrents' not in os.listdir():
+            os.mkdir('torrents')
         with open(os.path.join('torrents', os.path.basename('{}.torrent'.format(self.release_title))), 'wb') as t:
             t.write(torrent)
 
