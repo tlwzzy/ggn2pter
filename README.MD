@@ -33,7 +33,7 @@ https://github.com/scatking/ggn2pter/archive/master.zip
 ~~~~shell
 pip install -r requirements.txt
 ~~~~
-如果你无法安装的话可能是你的用户权限不够，尝试使用`sudo`安装
+如果你无法安装的话可能是你的用户权限不够，尝试使用`sudo`安装；对于某些同时装有`python2` 与 `python3` 的用户，可能需要指明`pip`的版本，如 `pip`
 ~~~~shell
 sudo -H pip install -r requirements.txt
 ~~~~
