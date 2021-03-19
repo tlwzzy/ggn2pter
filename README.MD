@@ -30,15 +30,15 @@ git clone https://github.com/scatking/ggn2pter.git
 https://github.com/scatking/ggn2pter/archive/master.zip
 ~~~~
 #### 2.安装相关依赖
-~~~~
+~~~~shell
 pip install -r requirements.txt
 ~~~~
 如果你无法安装的话可能是你的用户权限不够，尝试使用sudo安装
-~~~~
+~~~~shell
 sudo -H pip install -r requirements.txt
 ~~~~
 #### 3.运行使用
-~~~~
+~~~~shell
 python main.py
 ~~~~
 ### 可执行文件模式
