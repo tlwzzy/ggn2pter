@@ -5,6 +5,7 @@ import os
 import scatfunc
 import json
 import bencodepy
+import configparser
 
 
 headers = {
@@ -107,7 +108,8 @@ class GGnApi:
         for chunk in res.iter_content(100000):
             torrent += chunk
         torrent = bencodepy.decode(torrent)
-        del torrent[b'announce']
+        torrent[b'announce'] = b'https://tracker.pterclub.com/announce?passkey='+bytes(pter_key,encoding='utf-8')
+        torrent[b'info'][b'source'] = bytes('[pterclub.com] ＰＴ之友俱乐部',encoding='utf-8')
         del torrent[b'comment']
         torrent = bencodepy.encode(torrent)
         if 'torrents' not in os.listdir():
@@ -198,17 +200,17 @@ class PTerApi:
         if self.steam:
             game_info = scatfunc.steam_api(self.steam)
         else:
-            game_info = scatfunc.epic_api(self.steam)
+            game_info = scatfunc.epic_api(self.epic)
         data = {'uplver': self.uplver, 'detailsgameinfoid': '0', 'name': self.name, 'color': '0', 'font': '0',
                 'size': '0', 'descr': game_info['about'], 'console': '16', 'year': game_info['year'],
-                'has_allowed_offer': '0'}
+                'has_allowed_offer': '0', 'small_descr': input('请输入游戏中文名')}
         game_url = self.session.post(url, data=data).url
         gid = re.search(r'detailsgameinfo.php\?id=(\d+)', game_url).group(1)
         self.gid = gid
 
     def _upload_torrent(self):
         url = 'https://pterclub.com/takeuploadgame.php'
-        torrent_file = 'torrents/{}.torrent'.format(self.release_title)
+        torrent_file = os.path.join(torrent_dir,'[PTer]{}.torrent'.format(self.release_title))
         file = ("file", (os.path.basename(torrent_file), open(torrent_file, 'rb'), 'application/x-bittorrent')),
         data = {'uplver': self.uplver, 'categories': release_type_dict[self.release_type],
                 'format': release_format_dict[self.release_type] if self.release_type in release_format_dict else '7', 'has_allowed_offer': '0', 'gid': self.gid,
