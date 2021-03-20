@@ -63,7 +63,7 @@ python main.py
 ### 1.填写`config.ini`
 ```ini
 [PASSKEY]
-pter_key = 21f2941f75ec0faa6e18a676d3460686
+pter_key = passkey
 ;这里输入猫站的passkey
 [WORKDIR]
 torrent_dir = torrents
