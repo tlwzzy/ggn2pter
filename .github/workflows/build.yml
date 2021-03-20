@@ -50,11 +50,12 @@ jobs:
       - name: Build EXE
         run: |
           pyinstaller -F main.py -n ggn2pter
+          mv config.ini dist/
       - name: Upload EXE
         uses: actions/upload-artifact@v2.2.2
         with:
           name: ggn2pter_windows
-          path: dist/*.exe
+          path: dist/*
   build_linux:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -75,6 +76,7 @@ jobs:
       - name: Build Executable File
         run: |
           pyinstaller -F main.py -n ggn2pter
+          mv config.ini dist/
       - name: Upload File
         uses: actions/upload-artifact@v2.2.2
         with:
