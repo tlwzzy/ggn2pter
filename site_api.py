@@ -7,7 +7,10 @@ import json
 import bencodepy
 import configparser
 
-
+config = configparser.ConfigParser()
+config.read('config.ini')
+pter_key = config['PASSKEY']['pter_key']
+torrent_dir = config['WORKDIR']['torrent_dir']
 headers = {
     'Connection': 'keep-alive',
     'Cache-Control': 'max-age=0',
@@ -107,15 +110,19 @@ class GGnApi:
         torrent = bytes()
         for chunk in res.iter_content(100000):
             torrent += chunk
+        if not os.path.exists(torrent_dir):
+            os.makedirs(torrent_dir)
+        with open(os.path.join('torrents', os.path.basename('[GGn]{}.torrent'.format(self.release_title))), 'wb') as t:
+            t.write(torrent)
         torrent = bencodepy.decode(torrent)
         torrent[b'announce'] = b'https://tracker.pterclub.com/announce?passkey='+bytes(pter_key,encoding='utf-8')
         torrent[b'info'][b'source'] = bytes('[pterclub.com] ＰＴ之友俱乐部',encoding='utf-8')
         del torrent[b'comment']
         torrent = bencodepy.encode(torrent)
-        if 'torrents' not in os.listdir():
-            os.mkdir('torrents')
-        with open(os.path.join('torrents', os.path.basename('{}.torrent'.format(self.release_title))), 'wb') as t:
+        with open(os.path.join('torrents', os.path.basename('[PTer]{}.torrent'.format(self.release_title))), 'wb') as t:
             t.write(torrent)
+
+
 
     def _return_terms(self):
         attr = {}
