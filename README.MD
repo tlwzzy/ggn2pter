@@ -7,8 +7,9 @@
 ---
 ## 工具特点
 * 自动转种并能够下载相关种子，方便配合BT客户端实现自动做种
-* 支持有 `steam`,`epic`或`indenova`条目的游戏
+* 支持有 `steam` `epic`或`indenova`条目的游戏
 * 支持位列于 [platforms.txt](platforms.txt)目录下的平台
+* 支持转载 `游戏本体` `更新补丁` `修改器` `DLC` `GAMEDOX`
 
 ## 依赖环境 
 
