@@ -114,9 +114,9 @@ torrent_dir = torrents ;这里输入种子下载目录
 * Q. cookies 是个什么东西呀?怎么获取呀？
 * A. cookie 是来存储你登陆信息的一串字符，下面我以firefox为例演示一下怎么获取。
 * * 按下F12进入开发者工具，并切换至`NETWORK/网络`栏目：
-* * ![Network.png](https://img.pterclub.com/images/2021/03/22/1.png)
+* * ![Network.png](https://img.pterclub.com/images/2021/03/22/10ac0ff23048ed11c.png)
 * * 单击你左上角的用户名，载入你的用户界面
 * * 找到`NEWWORK/网络`栏目里加载出来的user.php之类文件，并单击它：
-* * ![user.php.png](https://img.pterclub.com/images/2021/03/22/286f019a8fe690dcb.png)
+* * ![user.php.png](https://img.pterclub.com/images/2021/03/22/255a6d5f5b5a46ba9.png)
 * * 找到`request header/请求头` 中cookie项目中的字段并复制下来：
-* * ![cookies.png](https://img.pterclub.com/images/2021/03/22/35bfa28d06933a43a.png)
+* * ![cookies.png](https://img.pterclub.com/images/2021/03/22/3abed1483ad76c9a6.png)
