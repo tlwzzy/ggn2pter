@@ -399,7 +399,7 @@ class PTerApi:
             print('未找到steam或epic链接，正在前往indenova查询\n... ... ...')
             indie_data = find_indie(self.name)
             for i in indie_data:
-                print('{}.{}'.format(i,re.sub('http.+','',indie_data[i])))
+                print('{}.{}'.format(i,re.sub('http.+','',indie_data[i]['title'])))
             indie_data = indie_data[input('请输入适配游戏的序号：')]['slug']
             game_info =scatfunc.indie_nova_aip(indie_data)
 
