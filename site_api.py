@@ -385,7 +385,6 @@ class PTerApi:
         game_dict = {}
         num = 1
         for game, platform in zip(game_list[::2], platform_list):
-            print(platform)
             gid = re.search(r'detailsgameinfo.php\?id=(\d+)', game['href']).group(1)
             game_dict[str(num)] = '{}: {} GID:{}'.format(platform['title'], game.text, gid)
             num += 1
