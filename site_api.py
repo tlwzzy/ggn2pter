@@ -441,6 +441,7 @@ class PTerApi:
             data['guoyu'] = 'yes'
         data['team'] = region
         short_name = scatfunc.back0day(self.name, self.release_title)
+        print(self.release_title)
         user_title = input('智能检测到的种子标题为{}，若有错误，请输入正确的标题，没有请直接回车：'.format(short_name))
         user_title = short_name if user_title == '' else user_title
         data['name'] = user_title
