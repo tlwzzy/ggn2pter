@@ -445,6 +445,7 @@ class PTerApi:
         user_title = input('智能检测到的种子标题为{}，若有错误，请输入正确的标题，没有请直接回车：'.format(short_name))
         user_title = short_name if user_title == '' else user_title
         data['name'] = user_title
+        print('正在上传... ...')
         self.session.post(url, data=data, files=file)
 
     def worker(self):
