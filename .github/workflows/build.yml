@@ -28,7 +28,6 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-# This workflow contains a single job called "build"
   Build_windows:
     # The type of runner that the job will run on
     runs-on: windows-latest
