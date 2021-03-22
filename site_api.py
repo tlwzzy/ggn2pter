@@ -417,7 +417,7 @@ class PTerApi:
         data = {'uplver': self.uplver, 'detailsgameinfoid': '0', 'name': self.name, 'color': '0', 'font': '0',
                 'size': '0', 'descr': game_info['about'], 'console': platform_dict[self.platform], 'year': game_info['year'],
                 'has_allowed_offer': '0',
-                'small_descr': game_info['chinese_name'] if game_info['chinese_name'] else input('请输入游戏中文名')}
+                'small_descr': game_info['chinese_name'] if 'chinese_name' in game_info else input('请输入游戏中文名')}
         game_url = self.session.post(url, data=data).url
         gid = re.search(r'detailsgameinfo.php\?id=(\d+)', game_url).group(1)
         self.gid = gid
