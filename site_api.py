@@ -194,7 +194,7 @@ headers = {
     'Connection': 'keep-alive',
     'Referer': 'https://indienova.com/gamedb',
     'Pragma': 'no-cache',
-    'Cache-Control': 'no-cache',}
+    'Cache-Control': 'no-cache', }
 
 release_type_dict = {
     'Full ISO': '1',
@@ -228,6 +228,15 @@ release_format_dict = {
     'ROM': '1',
 }
 
+platform_dict = {'Switch': '20', 'Game Boy Advance': '24', 'Game Boy': '22', 'Game Boy Color': '22', 'Wii U': '30',
+                 'Wii': '30',
+                 'Mac': '37', 'iOS': '38',
+                 'Windows': '16', 'DOS': '17', 'Xbox': '18', 'Xbox 360': '19',
+                 'PlayStation 1': '32', 'PlayStation 2': '33', 'PlayStation 3': '35', 'PlayStation 4': '31',
+                 'PlayStation Vita': '36', 'PlayStation Portable': '34',
+                 'Android': '45',
+                 'Linux': '46'}
+
 
 def find_indie(game_name):
     api_url = 'https://indienova.com/get/gameDBName'
@@ -239,6 +248,7 @@ def find_indie(game_name):
         data[str(num)] = i
         num += 1
     return data
+
 
 class GGnApi:
     def __init__(self, dl_link, cookies=None):
@@ -291,6 +301,7 @@ class GGnApi:
             self.release_type = desc_soup.select_one('#gamedox option[selected="selected"]').text
         self.scene = 'yes' if self.release_type.split('-')[-1] in scene_list else 'no'
         self.verified = 'yes' if self.release_type in 'P2P DRM Free' else 'no'
+        self.platform = desc_soup.select_one('#platform option[selected="selected"]').text
         return self.torrent_desc
 
     def _download_torrent(self):
@@ -336,6 +347,7 @@ class PTerApi:
         self.session_cookies = cookies
         self.session.headers = headers
         self.name = ggn_info['name']
+        self.platform = ggn_info['platform']
         self.steam = ggn_info['steam']
         self.epic = ggn_info['epic']
         self.release_title = ggn_info['release_title']
@@ -399,12 +411,12 @@ class PTerApi:
             print('未找到steam或epic链接，正在前往indenova查询\n... ... ...')
             indie_data = find_indie(self.name)
             for i in indie_data:
-                print('{}.{}'.format(i,re.sub('http.+','',indie_data[i]['title'])))
+                print('{}.{}'.format(i, re.sub('http.+', '', indie_data[i]['title'])))
             indie_data = indie_data[input('请输入适配游戏的序号：')]['slug']
-            game_info =scatfunc.indie_nova_aip(indie_data)
+            game_info = scatfunc.indie_nova_aip(indie_data)
 
         data = {'uplver': self.uplver, 'detailsgameinfoid': '0', 'name': self.name, 'color': '0', 'font': '0',
-                'size': '0', 'descr': game_info['about'], 'console': '16', 'year': game_info['year'],
+                'size': '0', 'descr': game_info['about'], 'console': platform_dict[self.platform], 'year': game_info['year'],
                 'has_allowed_offer': '0',
                 'small_descr': game_info['chinese_name'] if game_info['chinese_name'] else input('请输入游戏中文名')}
         game_url = self.session.post(url, data=data).url
