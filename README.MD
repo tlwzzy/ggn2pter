@@ -86,10 +86,20 @@ torrent_dir = torrents
 
 ### 5.选择游戏信息
 如果程序认为将要上传的种子的游戏信息可能已经存在于猫站，会返回一个列表让你选择游戏信息，如果不存在相关游戏的话，系统会自动上传到猫站。
-
+```shell
+我们在猫站找到以下游戏，请选择要上传的游戏分组（输入编号(并非gid)即可，如果没有请输入0）：
+1.Windows: Cooking Simulator GID:3409
+编号： <输入编号>
+```
 ### 6. 选择indienova条目（仅主机）
 对于没有`steam`和`epic`条目的主机游戏，脚本会自动搜索indienova网站并返回一个游戏列表，此时需要输入列表中的编号
-
+```shell
+未找到steam或epic链接，正在前往indenova查询
+... ... ...
+1.Cooking Simulator (2018)|g※|厨房模拟器|g※|
+2.Cooking Simulator: Cakes and Cookies (2020)|g※|厨房模拟器：蛋糕和曲奇饼|g※|
+请输入适配游戏的序号：<输入编号>
+```
 ### 7.输入种子额外信息
 由于无法从GGn稳定获取游戏地区，中文字幕与国语配音的相关信息，需要用户手动输入：
 ![moreinfo.png](https://img.pterclub.com/images/2021/03/15/2021-03-15-224809.png)
