@@ -38,7 +38,7 @@ https://github.com/scatking/ggn2pter/archive/master.zip
 ~~~~shell
 pip install -r requirements.txt
 ~~~~
-如果你无法安装的话可能是你的用户权限不够，尝试使用`sudo`安装；对于某些同时装有`python2` 与 `python3` 的用户，可能需要指明`pip`的版本，如 `pip`
+如果你无法安装的话可能是你的用户权限不够，尝试使用`sudo`安装；对于某些同时装有`python2` 与 `python3` 的用户，可能需要指明`pip`的版本，如 `pip3`
 ~~~~shell
 sudo -H pip install -r requirements.txt
 ~~~~
@@ -68,11 +68,9 @@ python main.py
 ### 1.填写`config.ini`
 ```ini
 [PASSKEY]
-pter_key = passkey
-;这里输入猫站的passkey
+pter_key = passkey ;这里输入猫站的passkey
 [WORKDIR]
-torrent_dir = torrents
-;这里输入种子下载目录
+torrent_dir = torrents ;这里输入种子下载目录
 ```
 
 ### 2.填写cookies
@@ -114,12 +112,11 @@ torrent_dir = torrents
 
 ## 常见问题
 * Q. cookies 是个什么东西呀?怎么获取呀？
-* A. cookie 是来存储你登陆信息的一串字符，下面我以chrome为例演示一下怎么获取。
-* * 按下F12进入开发者工具，并切换至`NETWORK`栏目：
-* * ![Network.png](https://img.pterclub.com/images/2020/02/28/1a74dee2a1e62fd48.png)
-* * 单击你右上角的用户名，载入你的用户界面
-* * 找到`NEWWORK`栏目里加载出来的user.php之类文件，并单击它：
-* * ![user.php.png](https://img.pterclub.com/images/2020/02/28/2976315bd1515d7b2.png)
-* * 找到request header 中cookie项目中的字段并复制下来（不用管演示里用红圈画起来的部分，实际上全部复制即可）：
-* * ![cookies.png](https://img.pterclub.com/images/2020/02/28/33f121e11bf1e1639.png)
-
+* A. cookie 是来存储你登陆信息的一串字符，下面我以firefox为例演示一下怎么获取。
+* * 按下F12进入开发者工具，并切换至`NETWORK/网络`栏目：
+* * ![Network.png](https://img.pterclub.com/images/2021/03/22/1.png)
+* * 单击你左上角的用户名，载入你的用户界面
+* * 找到`NEWWORK/网络`栏目里加载出来的user.php之类文件，并单击它：
+* * ![user.php.png](https://img.pterclub.com/images/2021/03/22/286f019a8fe690dcb.png)
+* * 找到`request header/请求头` 中cookie项目中的字段并复制下来：
+* * ![cookies.png](https://img.pterclub.com/images/2021/03/22/35bfa28d06933a43a.png)
