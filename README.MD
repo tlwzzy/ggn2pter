@@ -119,6 +119,6 @@ torrent_dir = torrents ;这里输入种子下载目录
 * * ![Network.png](https://img.pterclub.com/images/2021/03/22/10ac0ff23048ed11c.png)
 * * 单击你左上角的用户名，载入你的用户界面
 * * 找到`NEWWORK/网络`栏目里加载出来的user.php之类文件，并单击它：
-* * ![user.php.png](https://img.pterclub.com/images/2021/03/22/255a6d5f5b5a46ba9.png)
+* * ![user.php.png](https://img.pterclub.com/images/2021/03/23/2.png)
 * * 找到`request header/请求头` 中cookie项目中的字段并复制下来：
 * * ![cookies.png](https://img.pterclub.com/images/2021/03/22/3abed1483ad76c9a6.png)
