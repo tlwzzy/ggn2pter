@@ -309,9 +309,10 @@ class GGnApi:
         torrent = bytes()
         for chunk in res.iter_content(100000):
             torrent += chunk
-        if not os.path.exists(torrent_dir + '/ggn'):
-            os.makedirs(torrent_dir + '/ggn')
-        with open(os.path.join('torrents/ggn', os.path.basename('[GGn]{}.torrent'.format(self.release_title))),
+        ggn_dir = os.path.join(torrent_dir,'ggn/')
+        if not os.path.exists(ggn_dir):
+            os.makedirs(ggn_dir)
+        with open(os.path.join(ggn_dir, os.path.basename('[GGn]{}.torrent'.format(self.release_title))),
                   'wb') as t:
             t.write(torrent)
         torrent = bencodepy.decode(torrent)
