@@ -1,4 +1,4 @@
-# ggn2pter GGn自动转种机器人![python](https://img.shields.io/badge/python-3.7-blue)![time](https://img.shields.io/github/last-commit/scatking/ggn2pter)
+# ggn2pter GGn快捷转种工具![python](https://img.shields.io/badge/python-3.7-blue)![time](https://img.shields.io/github/last-commit/scatking/ggn2pter)
 
 ## 简介
 
