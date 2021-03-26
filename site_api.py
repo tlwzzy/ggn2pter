@@ -212,7 +212,7 @@ class PTerApi:
         torrent_file = os.path.join(TORRENT_DIR, '[PTer]{}.torrent'.format(self.release_title))
         file = ("file", (os.path.basename(torrent_file), open(torrent_file, 'rb'), 'application/x-bittorrent')),
         data = {'uplver': self.uplver, 'categories': constant.release_type_dict[self.release_type],
-                'format': constant.release_format_dict[self.release_type] if self.release_type in release_format_dict else '7',
+                'format': constant.release_format_dict[self.release_type] if self.release_type in constant.release_format_dict else '7',
                 'has_allowed_offer': '0', 'gid': self.gid,
                 'descr': self.torrent_desc}
         region = true_input('请选择种子地区（直接输入数字即可）：\n1.大陆\n2.香港\n3.台湾\n4.英美\n5.韩国\n6.日本\n7.其它\n')
