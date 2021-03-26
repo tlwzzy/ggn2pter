@@ -398,7 +398,7 @@ class PTerApi:
             gid = re.search(r'detailsgameinfo.php\?id=(\d+)', game['href']).group(1)
             game_dict[str(num)] = '{}: {} GID:{}'.format(platform['title'], game.text, gid)
             num += 1
-        print('我们在猫站找到以下游戏，请选择要上传的游戏分组（输入编号(并非gid)即可，如果没有请输入0）：')
+        print('将要上传的种子是：{}\n我们在猫站找到以下游戏，请选择要上传的游戏分组（输入编号(并非gid)即可，如果没有请输入0）：').format(self.release_title)
         for num, game in game_dict.items():
             print('{}.{}'.format(num, game))
         gid = (true_input('编号： '))
