@@ -10,7 +10,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 pter_key = config['PTER']['pter_key']
-anonymous = config['PTER']['Anonymous']
+anonymous = config['PTER']['anonymous']
 torrent_dir = config['WORKDIR']['torrent_dir']
 scene_list = ['0Saft', '0x0007', '0x0008', '0x0815', '1C', '1KING', '1UP', '1way', '20', '2006', '2CH', '2DB', '2GCREW',
               '2TU', '30', '313', '320', '3DiSO', '404', '41ST', '420Ripz', '4DiAMONDS', '4FuN', '4HM', '55L', '6rz',
