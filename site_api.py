@@ -238,6 +238,13 @@ platform_dict = {'Switch': '20', 'Game Boy Advance': '24', 'Game Boy': '22', 'Ga
                  'Linux': '46'}
 
 
+def true_input(content):
+    while True:
+        output = input(content)
+        if output != '':
+            return output
+
+
 def find_indie(game_name):
     api_url = 'https://indienova.com/get/gameDBName'
     num = 1
@@ -309,7 +316,7 @@ class GGnApi:
         torrent = bytes()
         for chunk in res.iter_content(100000):
             torrent += chunk
-        ggn_dir = os.path.join(torrent_dir,'ggn/')
+        ggn_dir = os.path.join(torrent_dir, 'ggn/')
         if not os.path.exists(ggn_dir):
             os.makedirs(ggn_dir)
         with open(os.path.join(ggn_dir, os.path.basename('[GGn]{}.torrent'.format(self.release_title))),
@@ -416,7 +423,8 @@ class PTerApi:
             game_info = scatfunc.indie_nova_aip(indie_data)
 
         data = {'uplver': self.uplver, 'detailsgameinfoid': '0', 'name': self.name, 'color': '0', 'font': '0',
-                'size': '0', 'descr': game_info['about'], 'console': platform_dict[self.platform], 'year': game_info['year'],
+                'size': '0', 'descr': game_info['about'], 'console': platform_dict[self.platform],
+                'year': game_info['year'],
                 'has_allowed_offer': '0',
                 'small_descr': game_info['chinese_name'] if 'chinese_name' in game_info else input('请输入游戏中文名')}
         game_url = self.session.post(url, data=data).url
