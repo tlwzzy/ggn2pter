@@ -67,10 +67,11 @@ python main.py
 
 ### 1.填写`config.ini`
 ```ini
-[PASSKEY]
-pter_key = passkey ;这里输入猫站的passkey
+[PTER]
+pter_key = your pter passkey ;这里输入猫站passkey
+Anonymous = yes ;这里选择是否匿名发布 yes/on
 [WORKDIR]
-torrent_dir = torrents ;这里输入种子下载目录
+torrent_dir = torrents ;这里是种子下载目录，绝对路径和相对路径皆可
 ```
 
 ### 2.填写cookies
