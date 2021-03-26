@@ -8,26 +8,26 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  Pytest:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.7, 3.8, 3.9]
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Test with pytest
-      run: |
-        pytest -s
+#  Pytest:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        python-version: [3.7, 3.8, 3.9]
+#
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Set up Python ${{ matrix.python-version }}
+#      uses: actions/setup-python@v2
+#      with:
+#        python-version: ${{ matrix.python-version }}
+#    - name: Install dependencies
+#      run: |
+#        python -m pip install --upgrade pip
+#        python -m pip install flake8 pytest
+#        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+#    - name: Test with pytest
+#      run: |
+#        pytest
   Build_windows:
     # The type of runner that the job will run on
     runs-on: windows-latest
