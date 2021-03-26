@@ -65,14 +65,12 @@ python main.py
 
 ## 使用指南
 
-### 1.填写`config.ini`
-```ini
-[PTER]
-pter_key = your pter passkey ;这里输入猫站passkey
-Anonymous = yes ;这里选择是否匿名发布 yes/on
-[WORKDIR]
-torrent_dir = torrents ;这里是种子下载目录，绝对路径和相对路径皆可
-```
+### 1.填写配置信息
+第一次运行时，程序会让你填写一些配置信息，按照实际情况填写即可：
+* 猫站`passkey`
+* 匿名选项
+* 种子下载目录
+* 站点`cookies`（见下文）
 
 ### 2.填写cookies
 第一次运行程序时，程序会让你输入GGn与猫站的cookies，按照提示输入即可：
