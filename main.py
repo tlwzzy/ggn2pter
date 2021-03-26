@@ -21,3 +21,4 @@ if __name__ == "__main__":
         ggn_info = ggn.worker()
         pter = site_api.PTerApi(ggn_info)
         pter.worker()
+    input('上传完毕，输入任意字符退出')
