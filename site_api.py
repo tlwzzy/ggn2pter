@@ -9,7 +9,8 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('config.ini')
-pter_key = config['PASSKEY']['pter_key']
+pter_key = config['PTER']['pter_key']
+anonymous = config['PTER']['Anonymous']
 torrent_dir = config['WORKDIR']['torrent_dir']
 scene_list = ['0Saft', '0x0007', '0x0008', '0x0815', '1C', '1KING', '1UP', '1way', '20', '2006', '2CH', '2DB', '2GCREW',
               '2TU', '30', '313', '320', '3DiSO', '404', '41ST', '420Ripz', '4DiAMONDS', '4FuN', '4HM', '55L', '6rz',
@@ -366,6 +367,7 @@ class PTerApi:
         self.scene = ggn_info['scene']
         self.verified = ggn_info['verified']
         self.gid = None
+        self.uplver = anonymous
 
     def _install_cookies(self):
         if not self.session_cookies:
@@ -383,13 +385,6 @@ class PTerApi:
         # data = {'name':'into'}
         res = self.session.post(url, data=data)
         res_soup = BeautifulSoup(res.text, 'lxml')
-        # user_class = res_soup.select_one('a[href^="userdetails.php?id="][class$="_Name"]')['class'][0].split('_')[0]
-        # uplev = 'ModeratorAdministratorUploaderSysOp'
-        # if user_class in uplev:
-        #     self.uplver = 'yes'
-        # else:
-        #     self.uplver = 'no'
-        self.uplver = 'no'
         game_list = res_soup.select('a[title="点击发布这游戏设备的种子"]')
         platform_list = res_soup.select('img[src^="/pic/category/chd/scenetorrents/"]')
         if not game_list:
