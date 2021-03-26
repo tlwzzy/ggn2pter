@@ -27,7 +27,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pytest
+        pytest -s
   Build_windows:
     # The type of runner that the job will run on
     runs-on: windows-latest
