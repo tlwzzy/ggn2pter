@@ -243,7 +243,7 @@ class PTerApi:
         res = self.session.post(url, data=data, files=file)
         if res.status_code != 302:
             res.encoding = 'utf-8'
-            error_info = '上传失败{}'.format(BeautifulSoup(res.text,'lxml').select_one('h2+table td.text').text)
+            error_info = '上传失败：{}'.format(BeautifulSoup(res.text,'lxml').select_one('h2+table td.text').text)
             raise ValueError(error_info)
 
     def worker(self):
