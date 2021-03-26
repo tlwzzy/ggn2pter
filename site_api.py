@@ -241,7 +241,9 @@ platform_dict = {'Switch': '20', 'Game Boy Advance': '24', 'Game Boy': '22', 'Ga
 def true_input(content):
     while True:
         output = input(content)
-        if output != '':
+        if output == '':
+            print('输入内容不能为空！')
+        else:
             return output
 
 
@@ -399,7 +401,7 @@ class PTerApi:
         print('我们在猫站找到以下游戏，请选择要上传的游戏分组（输入编号(并非gid)即可，如果没有请输入0）：')
         for num, game in game_dict.items():
             print('{}.{}'.format(num, game))
-        gid = (input('编号： '))
+        gid = (true_input('编号： '))
         if gid == '0':
             return None
         print(game_dict[gid])
@@ -419,7 +421,9 @@ class PTerApi:
             indie_data = find_indie(self.name)
             for i in indie_data:
                 print('{}.{}'.format(i, re.sub('http.+', '', indie_data[i]['title'])))
-            indie_data = indie_data[input('请输入适配游戏的序号：')]['slug']
+            indie_data = indie_data[input('请输入适配游戏的序号,没有请直接回车：')]['slug']
+            if indie_data == '':
+                return False
             game_info = scatfunc.indie_nova_aip(indie_data)
 
         data = {'uplver': self.uplver, 'detailsgameinfoid': '0', 'name': self.name, 'color': '0', 'font': '0',
@@ -439,7 +443,7 @@ class PTerApi:
                 'format': release_format_dict[self.release_type] if self.release_type in release_format_dict else '7',
                 'has_allowed_offer': '0', 'gid': self.gid,
                 'descr': self.torrent_desc}
-        region = input('请选择种子地区（直接输入数字即可）：\n1.大陆\n2.香港\n3.台湾\n4.英美\n5.韩国\n6.日本\n7.其它\n')
+        region = true_input('请选择种子地区（直接输入数字即可）：\n1.大陆\n2.香港\n3.台湾\n4.英美\n5.韩国\n6.日本\n7.其它\n')
         if self.scene == 'yes':
             data['sce'] = self.scene
         if self.verified == 'yes':
@@ -463,7 +467,8 @@ class PTerApi:
         self._find_game()
         if self.gid is None:
             print('未找到相关游戏，正在上传游戏资料...')
-            self._upload_game()
+            if self._upload_game() is False:
+                return 0
         print('正在上传种子...')
         self._upload_torrent()
 
