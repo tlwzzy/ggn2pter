@@ -48,7 +48,6 @@ jobs:
       - name: Build EXE
         run: |
           pyinstaller -F main.py -n ggn2pter
-          mv config.ini dist/
           mv ggn_links.txt dist/
       - name: Upload EXE
         uses: actions/upload-artifact@v2.2.2
@@ -75,7 +74,6 @@ jobs:
       - name: Build Executable File
         run: |
           pyinstaller -F main.py -n ggn2pter
-          mv config.ini dist/
           mv ggn_links.txt dist/
       - name: Upload File
         uses: actions/upload-artifact@v2.2.2
