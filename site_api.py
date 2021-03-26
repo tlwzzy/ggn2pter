@@ -5,22 +5,20 @@ import os
 import scatfunc
 import json
 import bencodepy
-import configparser
-import inital
+import constant
 
-config = configparser.ConfigParser()
-config.read('config.ini')
-pter_key = inital.pter_key
-anonymous = inital.anonymous
-torrent_dir = inital.torrent_dir
-scene_list = inital.scene_list
-headers = inital.scene_list
 
-release_type_dict = inital.release_type_dict
+pter_key = constant.pter_key
+anonymous = constant.anonymous
+torrent_dir = constant.torrent_dir
+scene_list = constant.scene_list
+headers = constant.scene_list
 
-release_format_dict = inital.release_format_dict
+release_type_dict = constant.release_type_dict
 
-platform_dict = inital.platform_dict
+release_format_dict = constant.release_format_dict
+
+platform_dict = constant.platform_dict
 
 
 def true_input(content):
