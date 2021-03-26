@@ -10,9 +10,15 @@ if __name__ == "__main__":
         ggn_links = [ggn_link]
     for ggn_link in ggn_links.copy():
         ggn = site_api.GGnApi(ggn_link)
-        ggn_info = ggn.worker()
+        try:
+            ggn_info = ggn.worker()
+        except:
+            continue
         pter = site_api.PTerApi(ggn_info)
-        pter.worker()
+        try:
+            pter.worker()
+        except ValueError as vr:
+            print(vr)
         ggn_links.remove(ggn_link)
     with open('ggn_links.txt', 'w') as gls:
         for link in ggn_links:

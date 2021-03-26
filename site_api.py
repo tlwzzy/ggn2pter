@@ -240,7 +240,11 @@ class PTerApi:
         user_title = short_name if user_title == '' else user_title
         data['name'] = user_title
         print('正在上传... ...')
-        self.session.post(url, data=data, files=file)
+        res = self.session.post(url, data=data, files=file)
+        if res.status_code != 302:
+            res.encoding = 'utf-8'
+            error_info = '上传失败{}'.format(BeautifulSoup(res.text,'lxml').select_one('h2+table td.text').text)
+            raise ValueError(error_info)
 
     def worker(self):
         self._install_cookies()
