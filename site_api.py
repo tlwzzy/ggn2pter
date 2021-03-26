@@ -8,17 +8,10 @@ import bencodepy
 import constant
 
 
-pter_key = constant.pter_key
-anonymous = constant.anonymous
-torrent_dir = constant.torrent_dir
-scene_list = constant.scene_list
-headers = constant.scene_list
-
-release_type_dict = constant.release_type_dict
-
-release_format_dict = constant.release_format_dict
-
-platform_dict = constant.platform_dict
+PTER_KEY = constant.pter_key
+ANONYMOUS = constant.anonymous
+TORRENT_DIR = constant.torrent_dir
+HEADERS = constant.headers
 
 
 def true_input(content):
@@ -35,7 +28,7 @@ def find_indie(game_name):
     num = 1
     params = {'query': game_name}
     data = {}
-    res = requests.get(api_url, headers=headers, params=params).json()
+    res = requests.get(api_url, headers=HEADERS, params=params).json()
     for i in res:
         data[str(num)] = i
         num += 1
@@ -46,7 +39,7 @@ class GGnApi:
     def __init__(self, dl_link, cookies=None):
         self.session = requests.Session()
         self.session_cookies = cookies
-        self.session.headers = headers
+        self.session.headers = HEADERS
         self.dl_link = dl_link
         self.torrent_id = re.search(r'id=(\d+)', dl_link).group(1)
 
@@ -91,7 +84,7 @@ class GGnApi:
         self.release_type = desc_soup.select_one('#miscellaneous option[selected="selected"]').text
         if self.release_type == 'GameDOX':
             self.release_type = desc_soup.select_one('#gamedox option[selected="selected"]').text
-        self.scene = 'yes' if self.release_type.split('-')[-1] in scene_list else 'no'
+        self.scene = 'yes' if self.release_type.split('-')[-1] in constant.scene_list else 'no'
         self.verified = 'yes' if self.release_type in 'P2P DRM Free' else 'no'
         self.platform = desc_soup.select_one('#platform option[selected="selected"]').text
         return self.torrent_desc
@@ -101,14 +94,14 @@ class GGnApi:
         torrent = bytes()
         for chunk in res.iter_content(100000):
             torrent += chunk
-        ggn_dir = os.path.join(torrent_dir, 'ggn/')
+        ggn_dir = os.path.join(TORRENT_DIR, 'ggn/')
         if not os.path.exists(ggn_dir):
             os.makedirs(ggn_dir)
         with open(os.path.join(ggn_dir, os.path.basename('[GGn]{}.torrent'.format(self.release_title))),
                   'wb') as t:
             t.write(torrent)
         torrent = bencodepy.decode(torrent)
-        torrent[b'announce'] = b'https://tracker.pterclub.com/announce?passkey=' + bytes(pter_key, encoding='utf-8')
+        torrent[b'announce'] = b'https://tracker.pterclub.com/announce?passkey=' + bytes(PTER_KEY, encoding='utf-8')
         torrent[b'info'][b'source'] = bytes('[pterclub.com] ＰＴ之友俱乐部', encoding='utf-8')
         del torrent[b'comment']
         torrent = bencodepy.encode(torrent)
@@ -138,7 +131,7 @@ class PTerApi:
     def __init__(self, ggn_info, cookies=None):
         self.session = requests.Session()
         self.session_cookies = cookies
-        self.session.headers = headers
+        self.session.headers = HEADERS
         self.name = ggn_info['name']
         self.platform = ggn_info['platform']
         self.steam = ggn_info['steam']
@@ -149,7 +142,7 @@ class PTerApi:
         self.scene = ggn_info['scene']
         self.verified = ggn_info['verified']
         self.gid = None
-        self.uplver = anonymous
+        self.uplver = ANONYMOUS
 
     def _install_cookies(self):
         if not self.session_cookies:
@@ -206,7 +199,7 @@ class PTerApi:
             game_info = scatfunc.indie_nova_aip(indie_data)
 
         data = {'uplver': self.uplver, 'detailsgameinfoid': '0', 'name': self.name, 'color': '0', 'font': '0',
-                'size': '0', 'descr': game_info['about'], 'console': platform_dict[self.platform],
+                'size': '0', 'descr': game_info['about'], 'console': constant.platform_dict[self.platform],
                 'year': game_info['year'],
                 'has_allowed_offer': '0',
                 'small_descr': game_info['chinese_name'] if 'chinese_name' in game_info else input('请输入游戏中文名：')}
@@ -216,10 +209,10 @@ class PTerApi:
 
     def _upload_torrent(self):
         url = 'https://pterclub.com/takeuploadgame.php'
-        torrent_file = os.path.join(torrent_dir, '[PTer]{}.torrent'.format(self.release_title))
+        torrent_file = os.path.join(TORRENT_DIR, '[PTer]{}.torrent'.format(self.release_title))
         file = ("file", (os.path.basename(torrent_file), open(torrent_file, 'rb'), 'application/x-bittorrent')),
-        data = {'uplver': self.uplver, 'categories': release_type_dict[self.release_type],
-                'format': release_format_dict[self.release_type] if self.release_type in release_format_dict else '7',
+        data = {'uplver': self.uplver, 'categories': constant.release_type_dict[self.release_type],
+                'format': constant.release_format_dict[self.release_type] if self.release_type in release_format_dict else '7',
                 'has_allowed_offer': '0', 'gid': self.gid,
                 'descr': self.torrent_desc}
         region = true_input('请选择种子地区（直接输入数字即可）：\n1.大陆\n2.香港\n3.台湾\n4.英美\n5.韩国\n6.日本\n7.其它\n')
