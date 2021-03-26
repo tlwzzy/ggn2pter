@@ -377,17 +377,19 @@ class PTerApi:
             return None
 
     def _find_game(self):
+        print('将要上传的种子是{}'.format(self.release_title))
         url = 'https://pterclub.com/searchgameinfo.php'
         data = {'name': self.name}
         # data = {'name':'into'}
         res = self.session.post(url, data=data)
         res_soup = BeautifulSoup(res.text, 'lxml')
-        user_class = res_soup.select_one('a[href^="userdetails.php?id="][class$="_Name"]')['class'][0].split('_')[0]
-        uplev = 'ModeratorAdministratorUploaderSysOp'
-        if user_class in uplev:
-            self.uplver = 'yes'
-        else:
-            self.uplver = 'no'
+        # user_class = res_soup.select_one('a[href^="userdetails.php?id="][class$="_Name"]')['class'][0].split('_')[0]
+        # uplev = 'ModeratorAdministratorUploaderSysOp'
+        # if user_class in uplev:
+        #     self.uplver = 'yes'
+        # else:
+        #     self.uplver = 'no'
+        self.uplver = 'no'
         game_list = res_soup.select('a[title="点击发布这游戏设备的种子"]')
         platform_list = res_soup.select('img[src^="/pic/category/chd/scenetorrents/"]')
         if not game_list:
@@ -398,7 +400,7 @@ class PTerApi:
             gid = re.search(r'detailsgameinfo.php\?id=(\d+)', game['href']).group(1)
             game_dict[str(num)] = '{}: {} GID:{}'.format(platform['title'], game.text, gid)
             num += 1
-        print('将要上传的种子是：{}\n我们在猫站找到以下游戏，请选择要上传的游戏分组的编号(并非gid)，如果没有请输入0：'.format(self.release_title))
+        print('我们在猫站找到以下游戏，请选择要上传的游戏分组的编号(并非gid)，如果没有请输入0：')
         for num, game in game_dict.items():
             print('{}.{}'.format(num, game))
         gid = (true_input('编号： '))
