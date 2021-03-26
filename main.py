@@ -10,7 +10,7 @@ if __name__ == "__main__":
         cookies = {"ggn":ggn_cookie,"pter":pter_cookie}
         with open('cookies.json','w') as coo:
             json.dump(cookies,coo)
-    ggn_link = input('请输入一个GGn种子下载连接或者直接回车开始扫描\'games.txt\'文件：')
+    ggn_link = input('请输入一个GGn种子下载连接或者直接回车开始扫描\'ggn_links.txt\'文件：')
     if ggn_link == '':
         with open('ggn_links.txt') as games:
             ggn_links = games.read().splitlines()
