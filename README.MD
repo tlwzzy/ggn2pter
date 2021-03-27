@@ -117,7 +117,7 @@ python main.py
 ### 8.上传完成
 
 ## TO DO LIST
-* [ ] 批量模式
+* [x] 批量模式
 ## 常见问题
 * Q. cookies 是个什么东西呀?怎么获取呀？
 * A. cookie 是来存储你登陆信息的一串字符，下面我以firefox为例演示一下怎么获取。
