@@ -196,7 +196,7 @@ class PTerApi:
             indie_data = indie_data[input('请输入适配游戏的序号,没有请直接回车：')]['slug']
             if indie_data == '':
                 return False
-            game_info = scatfunc.indie_nova_aip(indie_data)
+            game_info = scatfunc.indie_nova_api(indie_data)
 
         data = {'uplver': self.uplver, 'detailsgameinfoid': '0', 'name': self.name, 'color': '0', 'font': '0',
                 'size': '0', 'descr': game_info['about'], 'console': constant.platform_dict[self.platform],
