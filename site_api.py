@@ -231,7 +231,7 @@ class PTerApi:
         user_title = short_name if user_title == '' else user_title
         data['name'] = user_title
         print('正在上传... ...')
-        res = self.session.post(url, data=data, files=file)
+        res = self.session.post(url, data=data, files=file,allow_redirects=False)
         if res.status_code != 302:
             res.encoding = 'utf-8'
             error_soup = BeautifulSoup(res.text,'lxml')
