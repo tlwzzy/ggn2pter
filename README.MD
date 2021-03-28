@@ -118,6 +118,7 @@ python main.py
 
 ## TO DO LIST
 * [x] 批量模式
+* [ ] verified dump
 ## 常见问题
 * Q. cookies 是个什么东西呀?怎么获取呀？
 * A. cookie 是来存储你登陆信息的一串字符，下面我以firefox为例演示一下怎么获取。
