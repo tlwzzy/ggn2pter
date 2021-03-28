@@ -77,7 +77,7 @@ class GGnApi:
         desc_soup = BeautifulSoup(desc.text, 'lxml')
         self.torrent_desc = desc_soup.select_one('#release_desc').text.replace('[align=center]', '').replace('[/align]',
                                                                                                              '')
-        self.release_title = desc_soup.select_one('#release_title').get('value').replace('/', '')
+        self.release_title = desc_soup.select_one('#release_title').get('value').replace('/', '').replace('[FitGirl Repack]','-Firgirl')
         if desc_soup.select_one('#remaster_title'):
             self.release_title += '-GOG' if 'GOG' in desc_soup.select_one('#remaster_title').get(
                 'value').upper() else ''
