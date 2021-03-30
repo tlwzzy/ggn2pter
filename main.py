@@ -1,7 +1,35 @@
 import site_api
+import configparser
+import os
+import json
+
+
+def initial():
+    if 'cookies.json' not in os.listdir() or 'configs.ini' not in os.listdir():
+        if 'cookies.json' not in os.listdir():
+            print('检测到cookies文件不存在，请手动输入cookies：')
+            ggn_cookie = input('请输入GGn的cookie：')
+            pter_cookie = input('请输入PTer的cookie：')
+            cookies = {"ggn": ggn_cookie, "pter": pter_cookie}
+            with open('cookies.json', 'w') as coo:
+                json.dump(cookies, coo)
+
+        if 'configs.ini' not in os.listdir():
+            print('检测到config文件不存在，接下来将引导生成配置文件')
+            config = configparser.ConfigParser()
+            passkey = input('请输入猫站passkey：')
+            anonymous = input('是否匿名发布(yes/no)：')
+            torrent_dir = input('请输入种子下载路径，默认为当前目录下的torrents文件夹:')
+            if torrent_dir == '':
+                torrent_dir = 'torrents'
+            config['PTER'] = {'pter_key': passkey, 'anonymous': anonymous}
+            config['WORKDIR'] = {'torrent_dir': torrent_dir}
+            config.write(open('config.ini', 'w'))
+        print('初始化完毕，请重新运行！')
+        exit()
 
 if __name__ == "__main__":
-
+    initial()
     ggn_link = input('请输入一个GGn种子下载连接或者直接回车开始扫描\'ggn_links.txt\'文件：')
     if ggn_link == '':
         with open('ggn_links.txt') as games:
