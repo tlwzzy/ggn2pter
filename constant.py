@@ -3,7 +3,10 @@ import os
 import json
 
 if 'cookies.json' not in os.listdir() or 'config.ini' not in os.listdir():
-    pass
+    pter_key = ''
+    anonymous = ''
+    torrent_dir = ''
+    headers = ''
 else:
     config = configparser.ConfigParser()
     config.read('config.ini')
