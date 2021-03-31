@@ -5,7 +5,7 @@ import json
 
 
 def initial():
-    if 'cookies.json' not in os.listdir() or 'configs.ini' not in os.listdir():
+    if 'cookies.json' not in os.listdir() or 'config.ini' not in os.listdir():
         if 'cookies.json' not in os.listdir():
             print('检测到cookies文件不存在，请手动输入cookies：')
             ggn_cookie = input('请输入GGn的cookie：')
@@ -14,7 +14,7 @@ def initial():
             with open('cookies.json', 'w') as coo:
                 json.dump(cookies, coo)
 
-        if 'configs.ini' not in os.listdir():
+        if 'config.ini' not in os.listdir():
             print('检测到config文件不存在，接下来将引导生成配置文件')
             config = configparser.ConfigParser()
             passkey = input('请输入猫站passkey：')
@@ -27,6 +27,7 @@ def initial():
             config.write(open('config.ini', 'w'))
         print('初始化完毕，请重新运行！')
         exit()
+
 
 if __name__ == "__main__":
     initial()
