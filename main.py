@@ -5,6 +5,10 @@ import json
 
 
 def initial():
+    if 'ggn_links.txt' not in os.listdir():
+        with open('ggn_links.txt', 'w'):
+            pass
+
     if 'cookies.json' not in os.listdir() or 'config.ini' not in os.listdir():
         if 'cookies.json' not in os.listdir():
             print('检测到cookies文件不存在，请手动输入cookies：')
@@ -41,15 +45,17 @@ if __name__ == "__main__":
         ggn = site_api.GGnApi(ggn_link)
         try:
             ggn_info = ggn.worker()
-        except:
+        except Exception as error:
+            print('获取ggn信息出错：{}'.format(error))
             continue
         pter = site_api.PTerApi(ggn_info)
         try:
             pter.worker()
         except ValueError as vr:
-            print(vr)
+            print('上传至猫站出错{}'.format(vr))
+            continue
         ggn_links.remove(ggn_link)
     with open('ggn_links.txt', 'w') as gls:
         for link in ggn_links:
             gls.write(link + '\n')
-    input('上传完毕，输入任意字符退出')
+    input('列队完成，输入任意字符退出')
