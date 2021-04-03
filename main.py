@@ -2,6 +2,7 @@ import site_api
 import configparser
 import os
 import json
+import traceback
 
 
 def initial():
@@ -45,14 +46,14 @@ if __name__ == "__main__":
         ggn = site_api.GGnApi(ggn_link)
         try:
             ggn_info = ggn.worker()
-        except Exception as error:
-            print('获取ggn信息出错：{}'.format(error))
+        except Exception:
+            print('获取ggn信息出错：{}'.format(traceback.format_exc()))
             continue
         pter = site_api.PTerApi(ggn_info)
         try:
             pter.worker()
-        except ValueError as vr:
-            print('上传至猫站出错{}'.format(vr))
+        except ValueError:
+            print('上传至猫站出错{}'.format(traceback.format_exc()))
             continue
         ggn_links.remove(ggn_link)
     with open('ggn_links.txt', 'w') as gls:
