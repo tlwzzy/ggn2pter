@@ -97,7 +97,7 @@ class GGnApi:
         ggn_dir = os.path.join(TORRENT_DIR, 'ggn/')
         if not os.path.exists(ggn_dir):
             os.makedirs(ggn_dir)
-        self.torrent_title = re.sub(r'[/:*?"<>|]', self.release_title)
+        self.torrent_title = re.sub(r'[/:*?"<>|]', '_', self.release_title)
         with open(os.path.join(ggn_dir, os.path.basename('[GGn]{}.torrent'.format(self.torrent_title))),
                   'wb') as t:
             t.write(torrent)
