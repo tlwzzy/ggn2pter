@@ -70,6 +70,7 @@ python main.py
 * 猫站`passkey`
 * 匿名选项
 * 种子下载目录
+* 是否为`elite gamer`
 * 站点`cookies`（见下文）
 
 ### 2.填写cookies
