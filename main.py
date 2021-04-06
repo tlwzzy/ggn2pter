@@ -25,10 +25,14 @@ def initial():
             passkey = input('请输入猫站passkey：')
             anonymous = input('是否匿名发布(yes/no)：')
             torrent_dir = input('请输入种子下载路径，默认为当前目录下的torrents文件夹:')
+            elite_gamer = input('是否为GGn elite gamer 及以上(yes/noe默认为是)')
             if torrent_dir == '':
                 torrent_dir = 'torrents'
+            if elite_gamer != 'no':
+                elite_gamer = 'yes'
             config['PTER'] = {'pter_key': passkey, 'anonymous': anonymous}
             config['WORKDIR'] = {'torrent_dir': torrent_dir}
+            config['GGN'] = {'elite_gamer':elite_gamer}
             config.write(open('config.ini', 'w'))
         print('初始化完毕，请重新运行！')
         exit()
