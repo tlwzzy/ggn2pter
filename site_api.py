@@ -6,11 +6,13 @@ import scatfunc
 import json
 import bencodepy
 import constant
+from html2phpbbcode.parser import HTML2PHPBBCode
 
 PTER_KEY = constant.pter_key
 ANONYMOUS = constant.anonymous
 TORRENT_DIR = constant.torrent_dir
 HEADERS = constant.headers
+ELITEGAMER = constant.elite_gamer
 
 
 def true_input(content):
@@ -89,6 +91,28 @@ class GGnApi:
         self.platform = desc_soup.select_one('#platform option[selected="selected"]').text
         return self.torrent_desc
 
+    def _parse_desc(self):
+        release_element = self.res_soup.select_one('a [onclick*="#torrent_{}"]'.format(self.torrent_id))
+        release_edition = release_element.find_parent('tbody').find_previous_sibling().td.text
+        self.release_title, release_tag = re.search(r'(.+) (\[.+])', release_element.text.strip()).groups()
+        release_tag = [i.replace(']', '').strip() if 'off' not in i else None for i in release_tag.split(',')]
+        release_tag.remove(None)
+        self.release_title = self.release_title.replace('/', '').replace('[FitGirl Repack]', '-Firgirl')
+        description_element = self.res_soup.select_one('tr#torrent_{} blockquote#description'.format(self.torrent_id))
+        torrent_description = HTML2PHPBBCode().feed(str(description_element)).replace('[list]', '').replace('[/list]',
+                                                                                                            '').replace(
+            '[*]', '\n[*]')
+        self.torrent_desc = re.sub(r'(/nfoimg/\d+\.png)', r'https://gazellegames.net\g<1>', torrent_description)
+        if 'GOG' in release_edition.upper():
+            self.release_title += '-GOG'
+        self.release_type = release_tag[-1]
+        if self.release_type == 'GameDOX':
+            self.release_type = self.release_title.split('-')[-1].strip()
+        self.scene = 'yes' if 'scene' in release_tag else 'no'
+        self.verified = 'yes' if self.release_type in 'P2P DRM Free' else 'no'
+        self.platform = self.res_soup.select_one('#groupplatform a').text
+        return self.torrent_desc
+
     def _download_torrent(self):
         res = self.session.get(self.dl_link)
         torrent = bytes()
@@ -122,7 +146,7 @@ class GGnApi:
         print('正在获取游戏信息...')
         self._find_store()
         print('正在获取种子信息...')
-        self._copy_desc()
+        self._copy_desc() if ELITEGAMER == 'yes' else self._parse_desc()
         print('正在下载种子...')
         self._download_torrent()
         return self._return_terms()
