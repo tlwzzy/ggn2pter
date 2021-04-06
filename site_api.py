@@ -106,7 +106,7 @@ class GGnApi:
         torrent[b'info'][b'source'] = bytes('[pterclub.com] ＰＴ之友俱乐部', encoding='utf-8')
         del torrent[b'comment']
         torrent = bencodepy.encode(torrent)
-        with open(os.path.join('torrents', os.path.basename('[PTer]{}.torrent'.format(self.release_title))), 'wb') as t:
+        with open(os.path.join('torrents', os.path.basename('[PTer]{}.torrent'.format(self.torrent_title))), 'wb') as t:
             t.write(torrent)
 
     def _return_terms(self):
