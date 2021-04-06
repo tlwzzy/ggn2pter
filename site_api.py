@@ -7,7 +7,6 @@ import json
 import bencodepy
 import constant
 
-
 PTER_KEY = constant.pter_key
 ANONYMOUS = constant.anonymous
 TORRENT_DIR = constant.torrent_dir
@@ -77,7 +76,8 @@ class GGnApi:
         desc_soup = BeautifulSoup(desc.text, 'lxml')
         self.torrent_desc = desc_soup.select_one('#release_desc').text.replace('[align=center]', '').replace('[/align]',
                                                                                                              '')
-        self.release_title = desc_soup.select_one('#release_title').get('value').replace('/', '').replace('[FitGirl Repack]','-Firgirl')
+        self.release_title = desc_soup.select_one('#release_title').get('value').replace('/', '').replace(
+            '[FitGirl Repack]', '-Firgirl')
         if desc_soup.select_one('#remaster_title'):
             self.release_title += '-GOG' if 'GOG' in desc_soup.select_one('#remaster_title').get(
                 'value').upper() else ''
@@ -97,7 +97,7 @@ class GGnApi:
         ggn_dir = os.path.join(TORRENT_DIR, 'ggn/')
         if not os.path.exists(ggn_dir):
             os.makedirs(ggn_dir)
-        self.torrent_title = re.sub(r'[\/:*?"<>|]',self.release_title)
+        self.torrent_title = re.sub(r'[/:*?"<>|]', self.release_title)
         with open(os.path.join(ggn_dir, os.path.basename('[GGn]{}.torrent'.format(self.torrent_title))),
                   'wb') as t:
             t.write(torrent)
@@ -214,7 +214,8 @@ class PTerApi:
         torrent_file = os.path.join(TORRENT_DIR, '[PTer]{}.torrent'.format(self.torrent_title))
         file = ("file", (os.path.basename(torrent_file), open(torrent_file, 'rb'), 'application/x-bittorrent')),
         data = {'uplver': self.uplver, 'categories': constant.release_type_dict[self.release_type],
-                'format': constant.release_format_dict[self.release_type] if self.release_type in constant.release_format_dict else '7',
+                'format': constant.release_format_dict[
+                    self.release_type] if self.release_type in constant.release_format_dict else '7',
                 'has_allowed_offer': '0', 'gid': self.gid,
                 'descr': self.torrent_desc}
         region = true_input('请选择种子地区（直接输入数字即可）：\n1.大陆\n2.香港\n3.台湾\n4.英美\n5.韩国\n6.日本\n7.其它\n')
@@ -235,19 +236,19 @@ class PTerApi:
             rom_format = '[{}]'.format(true_input('请输入NS游戏的格式:'))
         short_name = scatfunc.back0day(self.name, self.release_title)
         print(self.release_title)
-        user_title = input('智能检测到的种子标题为{}，若有错误，请输入正确的标题，没有请直接回车：'.format(short_name+title_id+rom_format))
+        user_title = input('智能检测到的种子标题为{}，若有错误，请输入正确的标题，没有请直接回车：'.format(short_name + title_id + rom_format))
         user_title = short_name if user_title == '' else user_title
         data['name'] = user_title
         print('正在上传... ...')
-        res = self.session.post(url, data=data, files=file,allow_redirects=False)
+        res = self.session.post(url, data=data, files=file, allow_redirects=False)
         if res.status_code != 302:
             res.encoding = 'utf-8'
-            error_soup = BeautifulSoup(res.text,'lxml')
+            error_soup = BeautifulSoup(res.text, 'lxml')
             error_info = error_soup.select_one('h2+table td.text')
             if error_info:
                 error_info = error_info.text
             else:
-                error_info = error_soup.find('h1',text='上传失败！').find_next()
+                error_info = error_soup.find('h1', text='上传失败！').find_next()
             error_info = '上传失败：{}'.format(error_info)
             raise ValueError(error_info)
 
