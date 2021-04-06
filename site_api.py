@@ -97,7 +97,8 @@ class GGnApi:
         ggn_dir = os.path.join(TORRENT_DIR, 'ggn/')
         if not os.path.exists(ggn_dir):
             os.makedirs(ggn_dir)
-        with open(os.path.join(ggn_dir, os.path.basename('[GGn]{}.torrent'.format(self.release_title))),
+        self.torrent_title = re.sub(r'[\/:*?"<>|]',self.release_title)
+        with open(os.path.join(ggn_dir, os.path.basename('[GGn]{}.torrent'.format(self.torrent_title))),
                   'wb') as t:
             t.write(torrent)
         torrent = bencodepy.decode(torrent)
@@ -137,6 +138,7 @@ class PTerApi:
         self.steam = ggn_info['steam']
         self.epic = ggn_info['epic']
         self.release_title = ggn_info['release_title']
+        self.torrent_title = ggn_info['torrent_title']
         self.release_type = ggn_info['release_type']
         self.torrent_desc = ggn_info['torrent_desc']
         self.scene = ggn_info['scene']
@@ -209,7 +211,7 @@ class PTerApi:
 
     def _upload_torrent(self):
         url = 'https://pterclub.com/takeuploadgame.php'
-        torrent_file = os.path.join(TORRENT_DIR, '[PTer]{}.torrent'.format(self.release_title))
+        torrent_file = os.path.join(TORRENT_DIR, '[PTer]{}.torrent'.format(self.torrent_title))
         file = ("file", (os.path.basename(torrent_file), open(torrent_file, 'rb'), 'application/x-bittorrent')),
         data = {'uplver': self.uplver, 'categories': constant.release_type_dict[self.release_type],
                 'format': constant.release_format_dict[self.release_type] if self.release_type in constant.release_format_dict else '7',
