@@ -92,7 +92,7 @@ class GGnApi:
         return self.torrent_desc
 
     def _parse_desc(self):
-        release_element = self.res_soup.select_one('a [onclick*="#torrent_{}"]'.format(self.torrent_id))
+        release_element = self.res_soup.select_one('a[onclick*="#torrent_{}"]'.format(self.torrent_id))
         release_edition = release_element.find_parent('tbody').find_previous_sibling().td.text
         self.release_title, release_tag = re.search(r'(.+) (\[.+])', release_element.text.strip()).groups()
         release_tag = [i.replace(']', '').strip() if 'off' not in i else None for i in release_tag.split(',')]
