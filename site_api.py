@@ -79,7 +79,7 @@ class GGnApi:
         self.torrent_desc = desc_soup.select_one('#release_desc').text.replace('[align=center]', '').replace('[/align]',
                                                                                                              '')
         self.release_title = desc_soup.select_one('#release_title').get('value').replace('/', '').replace(
-            '[FitGirl Repack]', '-Firgirl')
+            '[FitGirl Repack]', '-Firgirl') if desc_soup.select_one('#release_title').get('value') else self.name
         if desc_soup.select_one('#remaster_title'):
             self.release_title += '-GOG' if 'GOG' in desc_soup.select_one('#remaster_title').get(
                 'value').upper() else ''
@@ -180,7 +180,7 @@ class PTerApi:
             return None
 
     def _find_game(self):
-        print('将要上传的种子是{}'.format(self.release_title))
+        print('将要上传的种子是：{}'.format(self.release_title))
         url = 'https://pterclub.com/searchgameinfo.php'
         data = {'name': self.name}
         # data = {'name':'into'}
