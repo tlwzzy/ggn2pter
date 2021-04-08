@@ -60,12 +60,12 @@ class GGnApi:
         self.res_soup = BeautifulSoup(res.text, 'lxml')
         self.name = re.search(r'-\s(.+)\s\(\d{4}', self.res_soup.select_one('#display_name').text).group(1)
         try:
-            self.steam = self.res_soup.select_one('a[href^="store.steampowered.com/app/"][title="Steam"]')[
+            self.steam = self.res_soup.select_one('a[href*="store.steampowered.com/app/"][title="Steam"]')[
                 'href']
         except TypeError:
             self.steam = None
         try:
-            self.epic = self.res_soup.select_one('a[href^="www.epicgames.com/store"][title="EpicGames"]')[
+            self.epic = self.res_soup.select_one('a[href*="www.epicgames.com/store"][title="EpicGames"]')[
                 'href']
         except TypeError:
             self.epic = None
